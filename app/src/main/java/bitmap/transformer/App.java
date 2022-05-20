@@ -16,7 +16,7 @@ public class App {
         return;
     }
 
-    public void run(String [] args)
+    public String run(String [] args)
     {
 
         boolean exiter = false;
@@ -39,7 +39,7 @@ public class App {
         }
         if(!exiter) cryptoPunk.writeOutImage();
         //}while(ask());
-    return;
+    return "success!";
     }
     public boolean ask()
     {

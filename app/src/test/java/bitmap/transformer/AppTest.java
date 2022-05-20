@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+        assertNotNull(classUnderTest.run(new String[]{"src/main/resources/baldy-8bit.bmp", "src/main/resources/cryptopunk.bmp", "grey"}), "app should create a new grey");
+        assertNotNull(classUnderTest.run(new String[]{"src/main/resources/baldy-8bit.bmp", "src/main/resources/cryptopunk.bmp", "invert"}), "app should create a new invert");
+        assertNotNull(classUnderTest.run(new String[]{"src/main/resources/baldy-8bit.bmp", "src/main/resources/cryptopunk.bmp", "random"}), "app should create a new random");
+        assertNotNull(classUnderTest.run(new String[]{"src/main/resources/baldy-8bit.bmp", "src/main/resources/cryptopunk.bmp", "reset"}), "app should create a new reset");
     }
 }
