@@ -4,19 +4,21 @@
 package bitmap.transformer;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+    private LinkedList head;
+    public LinkedList list;
+    private LinkedList tail;
 
     public static void main(String[] args) {
         new App().run(args);
         return;
     }
 
-    public void run(String [] args)
+    public String run(String [] args)
     {
 
         boolean exiter = false;
@@ -39,7 +41,8 @@ public class App {
         }
         if(!exiter) cryptoPunk.writeOutImage();
         //}while(ask());
-    return;
+        //history(transform_name);
+    return "success!";
     }
     public boolean ask()
     {
@@ -49,6 +52,57 @@ public class App {
         userInput = userInput.toLowerCase();
         if(userInput.equals("yes") || userInput.equals("y")){return true;}
         return false;
+    }
+    public void displayAllHistory(LinkedList head)
+    {
+        if(head == null) return ;
+        System.out.println(head.getData() + "->" + head.getNext() != null? head.getNext():"null");
+        displayAllHistory(head.getNext());
+        return;
+    }
+    //1. read to cachetxt
+    public boolean readCache()
+    {
+        boolean success = false;
+        try{
+            CacheReader historyReader = new CacheReader("src/main/resources/cache.txt");
+            historyReader.readCache();
+            success = true;
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        return success;
+    }
+    //2. write to cachetxt
+    public void writeCache()
+    {
+        try{
+            CacheWriter historyWriter = new CacheWriter("src/main/resources/cache.txt");
+            historyWriter.writeCache(list);
+            System.exit(0);
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+    //3. add to cachetxt
+    public void history(String data)
+    {
+        if(list == null){
+            this.list = new LinkedList(data);
+            this.head = this.tail = list;
+            return;
+        }
+        LinkedList temp = new LinkedList(data);
+        temp.setNext(list.getNext());
+        list.setNext(temp);
+        list = list.getNext();
+        tail = list;
     }
 /* BufferedImage image = new BufferedImage();
             BMP pic = BufferedImage.class.getClassLoader().getResource("baldy-8bit.bmp");
