@@ -4,22 +4,51 @@
 package bitmap.transformer;
 
 
+import java.util.Scanner;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        String userPath = System.getProperty("user.dir");
+        new App().run(args);
+        return;
+    }
 
-      String input_file_path = args[0],
+    public void run(String [] args)
+    {
+
+        boolean exiter = false;
+        String input_file_path = args[0],
               output_file_path = args[1],
               transform_name = args[2];
-      Bitmap anythingIWant = new Bitmap(
-              //input_file_path, output_file_path);
-                 "app/src/main/resources/baldy-8bit.bmp", "app/src/main/resources/cryptopunk.bmp");
-        anythingIWant.writeOutImage();
+      Bitmap cryptoPunk = new Bitmap(input_file_path, output_file_path);
+                 //"src/main/resources/baldy-8bit.bmp", "src/main/resources/cryptopunk.bmp");
+        //do{
+
+        switch(transform_name)
+        {
+            case("random"):  cryptoPunk.randomizer(); break;
+            case("invert"): cryptoPunk.invert(); break;
+            case("grey"): cryptoPunk.greyScale(); break;
+            default:
+                cryptoPunk.reset();
+                exiter = true;
+                break;
+        }
+        if(!exiter) cryptoPunk.writeOutImage();
+        //}while(ask());
     return;
+    }
+    public boolean ask()
+    {
+        System.out.println("do you want to continue? yes(y) or no(n)");
+        Scanner user = new Scanner(System.in);
+        String userInput = user.next();
+        userInput = userInput.toLowerCase();
+        if(userInput.equals("yes") || userInput.equals("y")){return true;}
+        return false;
     }
 /* BufferedImage image = new BufferedImage();
             BMP pic = BufferedImage.class.getClassLoader().getResource("baldy-8bit.bmp");
