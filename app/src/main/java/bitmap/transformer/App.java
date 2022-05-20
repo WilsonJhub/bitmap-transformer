@@ -3,12 +3,36 @@
  */
 package bitmap.transformer;
 
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        String userPath = System.getProperty("user.dir");
+
+      String input_file_path = args[0],
+              output_file_path = args[1],
+              transform_name = args[2];
+      Bitmap anythingIWant = new Bitmap(
+              //input_file_path, output_file_path);
+                 "app/src/main/resources/baldy-8bit.bmp", "app/src/main/resources/cryptopunk.bmp");
+        anythingIWant.writeOutImage();
+    return;
     }
+/* BufferedImage image = new BufferedImage();
+            BMP pic = BufferedImage.class.getClassLoader().getResource("baldy-8bit.bmp");
+            BufferedImage icon = new BufferedImage(pic);
+            PLabel label = new PLabel(icon);
+            frame.add(label);
+            frame.setDefaultCloseOperation
+                    (Plabel.EXIT_ON_CLOSE);
+            FRAME.pack();
+            FRAME.setVisible(true);
+            */
 }
+
+
+
+
